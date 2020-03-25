@@ -2,6 +2,8 @@ import React from 'react';
 import Aux from '../../HOC/Auxelary';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modele from '../../components/UI/Modele/Modele';
+import OrderSamary from '../../components/Burger/OrderSamary/OrderSamary';
 
 
 const INGREDIANT_PRICE = {
@@ -21,9 +23,22 @@ class BurgerBuilder extends React.Component{
             cheese: 0,
             meat: 0,
         },
-        totalPrice: 4
+        totalPrice: 0,
+        purchasable: false,
+        purgchasing: false,
     }
 
+    purchaseState = (ingediants) => {
+
+    const sum = Object.keys(ingediants)
+    .map(igKey =>{
+        return ingediants[igKey];
+    })
+    .reduce((sum, el) =>{
+       return sum + el; 
+    }, 0);
+    this.setState({purchasable: sum > 0});
+};
     addIngrHand = (type) =>{
         const oldCount = this.state.ingediants[type];
         const updatCount =  oldCount +1;
@@ -35,6 +50,7 @@ class BurgerBuilder extends React.Component{
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice + priceAddition;
         this.setState({totalPrice: newPrice, ingediants: updatIng})
+        this.purchaseState(updatIng);
     }
     
     removeIngHand = (type) =>{
@@ -51,6 +67,21 @@ class BurgerBuilder extends React.Component{
         const oldPrice = this.state.totalPrice;
         const newPrice = oldPrice - priceDedaction;
         this.setState({totalPrice: newPrice, ingediants: updatIng})
+        this.purchaseState(updatIng);
+    }
+
+    purchasingHandler =() =>{
+        this.setState({
+            purgchasing: true
+        })
+    };
+
+    purchasCanselHandler = () => {
+        this.setState({ purgchasing: false});
+    }
+
+    purchaseContinueHandler = () =>{
+        alert('ahaha this is purchase handler ')
     }
 
     render() {
@@ -62,12 +93,20 @@ class BurgerBuilder extends React.Component{
         }
         return(
             <Aux>
-                
+                <Modele show={this.state.purgchasing} moduleClosed={this.purchasCanselHandler}>
+                    <OrderSamary ingediantss ={this.state.ingediants}
+                    purchasCanceled={this.purchasCanselHandler}
+                    price={this.state.totalPrice} 
+                    purchasecontinue={this.purchaseContinueHandler} />
+                </Modele>
                 <Burger ingediants={this.state.ingediants} />
                 <BuildControls 
                 ingediantAdded={this.addIngrHand}
                 ingediantRemove ={this.removeIngHand}
                 disabledd = {disabledInfo}
+                purchasable={this.state.purchasable}
+                price={this.state.totalPrice}
+                ordered={this.purchasingHandler}
 
                  />
             </Aux>
