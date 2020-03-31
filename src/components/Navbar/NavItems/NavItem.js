@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from './navItem.module.css'
 
-const NavItem = (props) => {
-    return (
+const NavItem = (props) => (
         
          <li className={styles.NavItem}>
              <a href={props.link}  className={props.active ?  styles.active : null}>{props.children}</a>
@@ -10,6 +9,6 @@ const NavItem = (props) => {
             
        
     )
-}
+
 
 export default NavItem

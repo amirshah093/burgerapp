@@ -3,18 +3,29 @@ import styles from './modules.module.css'
 import Aux from '../../../HOC/Auxelary';
 import BackDrop from '../BackDrop/BackDrop';
 
-const Modele = (props) => (
-    <Aux>
-        <BackDrop show={props.show} clicked={props.moduleClosed} />
-        <div className={styles.Modal}
-        style={{
-            transform: props.show ? 'translateY(0)' : 'translateY(-10)',
-            opacity: props.show ? '1' : '0'
-        }}>
-            {props.children}
-        </div>
+class Modele extends React.Component{
 
-    </Aux>
-)
+    shouldComponentUpdate (nextProps, nextState){
+        return nextProps.show !== this.props.show || nextProps !== this.props.children;
+    }
+    componentDidUpdate(){
+        console.log('[Modele] Will Update')
+    }
+    render(){
+        return(
+            <Aux >
+                <BackDrop show={this.props.show} clicked={this.props.moduleClosed} />
+                <div className={styles.Modal}
+                style={{
+                    transform: this.props.show ? 'translateY(0)' : 'translateY(-10)',
+                    opacity: this.props.show ? '1' : '0'
+                }}>
+                    {this.props.children}
+                </div>
+        
+            </Aux>
+        )
+    }
+} 
 
 export default Modele;

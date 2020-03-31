@@ -5,17 +5,39 @@ import Toolbar from './Navbar/Toolbar/Toolbar';
 import SideDrower from './Navbar/SideDrower/SideDrower';
 
 
-const Layout = (props) =>(
-    <Aux>
-        <Toolbar />
-        <SideDrower />
-        <main className={styles.Content}>
 
-        {props.children}
-        </main>
-    </Aux>
+class Layout extends React.Component{
+    state ={
+        showSideDeower: false,
+    }
+
+    sideDrowerClosedHandler =() =>{
+        this.setState({showSideDeower: false})
+    }
+
+    sideToggleHandler =()=>{
+        this.setState((prevState) =>{
+            return {showSideDeower: ! prevState.showSideDeower};
+        });
+    }
+
+    render(){
+        return(
+            <Aux>
+                <Toolbar DrowerToggleClicked={this.sideToggleHandler} />
+                <SideDrower 
+                open={this.state.showSideDeower} 
+                closed={this.sideDrowerClosedHandler} />
+                <main className={styles.Content}>
+                {this.props.children}
+                </main>
+            </Aux>
+        )
+    }
+};
+
     
-);
+
 
 export default Layout;
 

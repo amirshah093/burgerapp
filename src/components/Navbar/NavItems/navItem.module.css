@@ -1,17 +1,14 @@
 .NavItem{
-    margin: 0;
+    margin: 10px 0;
     box-sizing: border-box;
-    display: flex;
-    height: 100%;
-    align-items: center;
+    display: block;
+    width: 100%;
 }
 
 .NavItem  a{
-    color: white;
+    color: #8F5C2C;
     text-decoration: none;
-    height: 100%;
-    padding: 16px 10px;
-    border-bottom: 4px solid transparent;
+    width: 100%;
     box-sizing: border-box;
     display: block;
 
@@ -21,14 +18,12 @@
 .NavItem a:hover,
 .NavItem a:active,
 .NavItem a.active{
-
-    border-bottom: 4px solid #40a4c8 ;
-    color: rgb(65, 7, 7);
+    color: #40A4C8;
 }
 
 @media (min-width: 800px){
     .NavItem{
-        margin: 10px 0;
+        margin: 0;
         display: flex;
         height: 100%;
         width: auto;
@@ -36,16 +31,17 @@
     }
     
     .NavItem  a{
-        color: rgb(233, 233, 233);
-        width: 100%;
-        box-sizing: border-box;
-        display: block;
+        color: white;
+        height: 100%;
+        padding: 16px 10px;
+        border-bottom: 4px solid transparent;
         
     }
     
     .NavItem a:hover,
     .NavItem a:active,
     .NavItem a.active{
-        color: rgb(198, 223, 88);
-    }
+        background-color: #8F5C2C;
+        border-bottom: 4px solid #40A4C8;
+        color: white;    }
 }
