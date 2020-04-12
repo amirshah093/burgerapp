@@ -1,6 +1,7 @@
 import React from 'react'
 import BurgerEng from './BurgerEng/BurgerEng'
-import styles from './burger.module.css'
+import styles from './burger.module.css';
+import {withRouter} from 'react-router-dom'
 
 const Burger = (props) => {
     let ingediantsTrnsform = Object.keys(props.ingediants)
@@ -25,4 +26,4 @@ const Burger = (props) => {
     )
 }
 
-export default Burger;
+export default withRouter(Burger);
